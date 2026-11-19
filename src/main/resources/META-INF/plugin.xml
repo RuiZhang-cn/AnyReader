@@ -1,0 +1,70 @@
+<idea-plugin>
+  <id>io.github.ruizhangcn.anyreader</id>
+  <name>AnyReader</name>
+  <version>1.0.0</version>
+  <vendor email="rui10038@gmail.com" url="https://github.com/RuiZhang-cn">rui</vendor>
+  <idea-version since-build="243" />
+
+  <description><![CDATA[
+    <p><b>AnyReader</b> is a clean, lightweight, and privacy-conscious document reader for JetBrains IDEs. Read local EPUB, PDF, Markdown, TXT, and image collections right inside the IDE sidebar without cluttering your editor tabs or recent files history.</p>
+
+    <h3>Core Features</h3>
+    <ul>
+      <li><b>Multi-Format Support:</b> Native rendering for EPUB 2/3 (via embedded JCEF with zero temp files and offline-only resource isolation), PDF (powered by Apache PDFBox with HiDPI scaling, rotation, drag-pan, and zoom), Markdown, plain TXT (auto charset detection for UTF-8/GB18030), and local image folders.</li>
+      <li><b>Full-Text &amp; Inline Search:</b> Instant in-chapter/in-page find (<code>Ctrl+F</code>) and asynchronous book-wide keyword search with contextual snippets and direct jump-to-match.</li>
+      <li><b>Theme &amp; Typography Customization:</b> 5 built-in themes including <i>Follow IDE</i> (automatically matches your current IDE color scheme), custom colors, font family, size, line spacing, padding, PDF color filters (Dark Invert, Warm Sepia, Grayscale), and canvas opacity control.</li>
+      <li><b>Bookmarks &amp; Bookshelf Management:</b> Pin favorite documents, filter by group or alias, relink moved files without losing progress or notes, export bookmarks to Markdown, and automatically resume from the exact last chapter/page and scroll offset.</li>
+      <li><b>Low-Profile &amp; Privacy-Focused Design:</b> Compact <code>Docs</code> tool window, optional grayscale/collapsed image placeholders with lightbox zoom, custom document display aliases, quick reference view toggle (<code>Alt+Q</code> or double <code>Esc</code>), and optional single-line status bar reader.</li>
+    </ul>
+
+    <hr/>
+
+    <p><b>AnyReader</b> 是一款轻量、低存在感且注重隐私的 JetBrains IDE 本地文档阅读插件，支持直接在右侧边栏查阅 EPUB、PDF、Markdown、TXT 与本地图片集，不污染编辑器标签页和最近文件历史。</p>
+
+    <h3>主要功能</h3>
+    <ul>
+      <li><b>多格式阅读：</b>支持 EPUB 2/3（基于内存虚拟协议隔离加载图片与样式，零端口零落盘且阻断外网请求）、PDF（PDFBox 高分屏渲染、旋转、拖拽平移、自适应宽度与缩放）、Markdown、TXT（UTF-8/GB18030 自动嗅探与章节目录识别）及本地图片册浏览。</li>
+      <li><b>双层关键词检索：</b>支持页内即时查找（<code>Ctrl+F</code>）与全书跨章/跨页异步全文检索，展示上下文摘要并点击精准定位高亮。</li>
+      <li><b>配色与排版调节：</b>内置「跟随 IDE」等 5 套主题、自定义前背景色/字体/字号/行高/边距，PDF 专属支持暗色反色/护眼暖色/灰阶滤镜及透明度调节。</li>
+      <li><b>书架与书签管理：</b>支持分组筛选、文档别名、缺失文件重定位保留历史进度与书签、书签摘录/备注与导出 Markdown、末次章节页码及滚动偏移自动记忆。</li>
+      <li><b>隐私保护与低调交互：</b>工具窗低调命名为 <code>Docs</code>，支持图片灰阶降噪/胶囊折叠与灯箱放大，支持快捷切换开发速查视图（<code>Alt+Q</code> 或双击 <code>Esc</code>）及可选状态栏单行微读。</li>
+    </ul>
+  ]]></description>
+
+  <change-notes><![CDATA[
+    <h3>1.0.0</h3>
+    <ul>
+      <li>Initial public release of AnyReader.</li>
+      <li>Added EPUB 2/3, PDF, Markdown, TXT, and image directory viewers with persistent reading position tracking.</li>
+      <li>Added full-text cross-chapter/page search, inline find bar, bookmarks with Markdown export, bookshelf management, customizable themes/typography, image privacy modes, and quick reference toggle (<code>Alt+Q</code>).</li>
+    </ul>
+    <hr/>
+    <h3>1.0.0 初始版本</h3>
+    <ul>
+      <li>首发上线 AnyReader：支持 EPUB 2/3、PDF、Markdown、TXT 及图片目录阅读与精确末次位置记忆。</li>
+      <li>支持全书与页内关键词检索、书签备注与导出、书架与别名管理、5 套配色与排版实时调节、图片隐私折叠灯箱及快捷切换速查视图（<code>Alt+Q</code>）。</li>
+    </ul>
+  ]]></change-notes>
+
+  <depends>com.intellij.modules.platform</depends>
+  <depends>com.intellij.modules.jcef</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <toolWindow id="Docs"
+                secondary="true"
+                anchor="right"
+                icon="/icons/docs-toolwindow.svg"
+                factoryClass="dev.local.docinspector.toolwindow.DocInspectorToolWindowFactory"/>
+    <statusBarWidgetFactory id="DocInspectorMicroBar"
+                            implementation="dev.local.docinspector.statusbar.MicroReadWidgetFactory"/>
+  </extensions>
+
+  <actions>
+    <action id="AnyReader.BossKey"
+            class="dev.local.docinspector.action.BossKeyAction"
+            text="Toggle Reference View"
+            description="Switch Docs panel to reference cheat sheet">
+      <keyboard-shortcut keymap="$default" first-keystroke="alt Q"/>
+    </action>
+  </actions>
+</idea-plugin>
